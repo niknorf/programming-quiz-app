@@ -28,6 +28,10 @@ export class AppComponent {
 
     this.socket.on('connect', () => {
       console.log(this.socket.id + ' has joined');
+
+      this.socket.emit('rooms', function(data) {
+        console.log(data);
+      });
     });
 
     this.socket.on('disconnect', () => {

@@ -85,6 +85,10 @@ module.exports = {
         socket.emit('successJoin', room);
       }
 
+      function getRooms() {
+        return rooms;
+      }
+
       function getRoomByName(roomName) {
         let room = _.find(rooms, {
           name: roomName
@@ -109,6 +113,12 @@ module.exports = {
           index: rooms.indexOf(room)
         };
       }
+
+      socket.on('rooms', function (ack) {
+        ack({
+          rooms: getRooms()
+        });
+      })
 
       socket.on('createRoom', function (room, ack) {
         if (currRoom && room !== currRoom) {
