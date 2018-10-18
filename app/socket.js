@@ -167,6 +167,13 @@ module.exports = {
         });
       });
 
+      socket.on('inputChanged', function (data) {
+        io.emit('onInputChanged', {
+          id: socket.id,
+          inputData: data,
+        });
+      });
+
       socket.on('disconnect', function () {
         console.log(`${socket.id} has disconnected`);
 
