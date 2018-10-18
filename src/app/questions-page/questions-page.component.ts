@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./questions-page.component.scss']
 })
 export class QuestionsPageComponent implements OnInit {
+  question: string;
+  answer: string;
+
   constructor() {}
+
   ngOnInit() {}
 }
