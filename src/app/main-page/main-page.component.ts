@@ -34,7 +34,7 @@ export class MainPageComponent implements OnInit {
 
     console.log(this.roomName, this._socket);
 
-    this._socket.emit('createRoom', this.roomName, function(data) {
+    this._socket.emit('createRoom', this.roomName, data => {
       console.log(data);
 
       if (data.type === 'Abort') {
@@ -48,7 +48,7 @@ export class MainPageComponent implements OnInit {
   }
 
   joinRoom(room) {
-    this._socket.emit('joinRoom', room, function(data) {
+    this._socket.emit('joinRoom', room, data => {
       if (data.type === 'Abort') {
         return alert('Error: ' + data.reason);
       }
@@ -60,7 +60,7 @@ export class MainPageComponent implements OnInit {
   }
 
   leaveRoom(room) {
-    this._socket.emit('leaveRoom', room, function(data) {
+    this._socket.emit('leaveRoom', room, data => {
       if (data.type === 'Ok') {
         this.closeRoom();
       }
