@@ -3,10 +3,14 @@
     <h1>{{ question }}</h1>
   </div>
 
+  <div class="result">
+    <h3></h3>
+  </div>
+
   <div class="answer">
     <ul class="answer-letters">
 
-      <li *ngFor="let letter of letters; let i = index" class="answer-letter">
+      <li *ngFor="let letter of correctGuesses; let i = index" class="answer-letter">
         <div class="letter-wrapper">
             {{ letter }}
         </div>
@@ -15,9 +19,9 @@
   </div>
 
   <div class="input-wrapper">
-      <mat-form-field class="example-full-width">
-          <input matInput placeholder="Your guess..." id="#input">
-      </mat-form-field>
-      <button mat-button color="primary">Primary</button>
+    <mat-form-field class="example-full-width">
+        <input matInput [(ngModel)]="guess" placeholder="Your guess..." id="#guess" maxlength="1">
+    </mat-form-field>
+    <button mat-button color="primary" (click)="checkLetter()">Go!</button>
   </div>
 </div>

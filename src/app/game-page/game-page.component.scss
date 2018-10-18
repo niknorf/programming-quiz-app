@@ -2,7 +2,21 @@
   text-align: center;
 }
 .questions {}
-.ansewr {}
+
+.result {
+  margin: 40px 0 80px;
+
+  &.correct {
+    background-color: #28a745;
+  }
+
+  &.wrong {
+    background-color: #dc3545;
+  }
+
+}
+
+.answer {}
 
 .answer-letters {
   padding-left: 0;
