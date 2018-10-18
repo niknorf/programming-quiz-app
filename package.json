@@ -3,11 +3,14 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "start": "node app.js",
+    "listen": "nodemon app.js",
+    "dev": "babel-watch server.js",
+    "postinstall": "ng build"
   },
   "private": true,
   "dependencies": {
@@ -24,7 +27,15 @@
     "core-js": "^2.5.4",
     "rxjs": "~6.2.0",
     "zone.js": "~0.8.26",
-    "@angular/cdk": "^6.2.0"
+    "@angular/cdk": "^6.2.0",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.4",
+    "jquery": "^3.3.1",
+    "lodash": "^4.17.11",
+    "mongodb": "^3.1.8",
+    "socket.io": "^2.1.1",
+    "socket.io-client": "^2.1.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.8.0",
@@ -45,6 +56,8 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "typescript": "~2.9.2"
+    "typescript": "~2.9.2",
+    "@types/jquery": "^3.3.20",
+    "@types/socket.io-client": "^1.4.32"
   }
 }
