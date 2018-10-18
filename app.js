@@ -58,7 +58,7 @@ function handleError(res, reason, message, code) {
 };
 
 // This will allow Angular to handle the routing
-app.get('/', (req, res) => {
+app.get('/*', (req, res) => {
   res.sendFile(path.resolve('dist/quiz/index.html'));
 });
 
