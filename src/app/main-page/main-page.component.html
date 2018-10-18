@@ -27,9 +27,9 @@
 
     <!-- Actions -->
     <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let row">
-        <button mat-button (click)="joinRoom()">Join</button>
+        <button mat-button (click)="joinRoom()" routerLink="/game-page">Join</button>
       </td>
     </ng-container>
 

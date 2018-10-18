@@ -23,6 +23,7 @@ const ELEMENT_DATA: SampleElement[] = [
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss']
 })
+
 export class MainPageComponent implements OnInit {
   roomName: Room['name'];
   uri: URI;
