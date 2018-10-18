@@ -30,7 +30,11 @@ export class AppComponent {
       console.log(this.socket.id + ' has joined');
     });
 
-    // andler for socket input
+    this.socket.on('disconnect', () => {
+      console.log(this.socket.id + ' has leaved');
+    });
+
+    // handler for socket input
 
     $(document).on('input', event => {
       let el = event.target,

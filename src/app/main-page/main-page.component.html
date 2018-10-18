@@ -17,3 +17,8 @@
     <button mat-button>SHARE</button>
   </mat-card-actions>
 </mat-card>
+
+<div>
+  <input type="text" #roomNameInput placeholder="Room name" value="test">
+  <button (click)="createRoom(roomNameInput.value)">Create a new room</button>
+</div>
