@@ -43,6 +43,7 @@ mongodb.MongoClient.connect(
 );
 
 const API = 'api';
+const roomsCollection = 'ROOMS_COLLECTION';
 const questionCollection = 'QUESTIONS_COLLECTION';
 const categoryCollection = 'CATEGORY_COLLECTION';
 const scoreCollection = 'SCORE_COLLECTION';
@@ -58,9 +59,64 @@ function handleError(res, reason, message, code) {
 };
 
 // This will allow Angular to handle the routing
-app.get('/*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.resolve('dist/quiz/index.html'));
 });
+
+
+/* ===== Room API ===== */
+
+app.get(`/${API}/rooms`, function (req, res) {
+  db.collection(roomsCollection).find({}).toArray(function (err, docs) {
+    if (err) {
+      handleError(res, err.message, "Failed.");
+    } else {
+      res.status(200).json(docs);
+    }
+  });
+});
+
+// app.post(`/${API}/rooms`, function (req, res) {
+//   let rooms = req.body;
+
+//   console.log(req.body);
+
+//   db.collection(roomsCollection).insertMany(
+//     [{
+//         "position": 1,
+//         "name": "Routing",
+//         "category": "Angular"
+//       }, {
+//         position: 2,
+//         name: 'Store setup',
+//         category: 'Magento'
+//       },
+//       {
+//         position: 3,
+//         name: 'React basics',
+//         category: 'React'
+//       },
+//       {
+//         position: 4,
+//         name: 'Module creation',
+//         category: 'Magento'
+//       },
+//       {
+//         position: 5,
+//         name: 'PHP: Best practices',
+//         category: 'PHP'
+//       }
+//     ],
+//     function (err, doc) {
+//       if (err) {
+//         console.log(doc);
+//         handleError(res, err.message, "Failed");
+//       } else {
+//         console.log("ok");
+//         res.status(201).json(doc.ops[0]);
+//       }
+//     });
+// });
 
 /* ===== Category API ===== */
 

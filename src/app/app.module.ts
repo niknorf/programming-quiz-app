@@ -30,6 +30,7 @@ import { QuestionsPageComponent } from './questions-page/questions-page.componen
 import { ScoresPageComponent } from './scores-page/scores-page.component';
 import * as $ from 'jquery';
 import { ElementHelperService } from './element-helper.service';
+import { HttpModule } from '@angular/http';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'main-page', pathMatch: 'full' },
@@ -68,6 +69,7 @@ const appRoutes: Routes = [
     MatPaginatorModule,
     MatSortModule,
     MatInputModule,
+    HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [ElementHelperService],
