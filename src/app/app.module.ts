@@ -16,6 +16,7 @@ import { QuestionsPageComponent } from './questions-page/questions-page.componen
 import { ScoresPageComponent } from './scores-page/scores-page.component';
 
 const appRoutes: Routes = [
+  { path: '', redirectTo: 'main-page', pathMatch: 'full' },
   { path: 'main-page', component: MainPageComponent },
   { path: 'game-page', component: GamePageComponent },
   { path: 'questions-page', component: QuestionsPageComponent },
