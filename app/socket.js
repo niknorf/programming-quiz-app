@@ -178,7 +178,7 @@ module.exports = {
       });
 
       socket.on('inputChanged', function (data) {
-        io.emit('onInputChanged', {
+        socket.in(data.room).emit('onInputChanged', {
           id: socket.id,
           inputData: data,
         });
