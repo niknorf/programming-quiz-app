@@ -1,3 +1,23 @@
-<p>
-  game-page works!
-</p>
+<div class="game-wrapper">
+  <div class="question">
+    <h1>{{ question }}</h1>
+  </div>
+
+  <div class="answer">
+    <ul class="answer-letters">
+
+      <li *ngFor="let letter of letters; let i = index" class="answer-letter">
+        <div class="letter-wrapper">
+            {{ letter }}
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="input-wrapper">
+      <mat-form-field class="example-full-width">
+          <input matInput placeholder="Your guess..." id="#input">
+      </mat-form-field>
+      <button mat-button color="primary">Primary</button>
+  </div>
+</div>
