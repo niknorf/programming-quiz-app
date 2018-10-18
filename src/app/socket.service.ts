@@ -5,6 +5,7 @@ import * as socketIo from 'socket.io-client';
 
 const url = 'http://localhost:2112';
 
+@Injectable()
 export class SocketService {
   constructor() {}
 
@@ -13,5 +14,9 @@ export class SocketService {
   public initSocket(): SocketIOClient.Socket {
     this.socket = socketIo(url);
     return this.socket;
+  }
+
+  public emit(event: string, data, callback) {
+    this.socket.emit(event, data, callback);
   }
 }

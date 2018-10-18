@@ -28,9 +28,17 @@ export class AppComponent {
 
     this.socket.on('connect', () => {
       console.log(this.socket.id + ' has joined');
+
+      this.socket.emit('rooms', function(data) {
+        console.log(data);
+      });
     });
 
-    // andler for socket input
+    this.socket.on('disconnect', () => {
+      console.log(this.socket.id + ' has leaved');
+    });
+
+    // handler for socket input
 
     $(document).on('input', event => {
       let el = event.target,
