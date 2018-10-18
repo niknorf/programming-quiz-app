@@ -23,8 +23,8 @@ export class GamePageComponent implements OnInit {
   initializeGame() {
     $('.input-wrapper').removeClass('success');
 
-    this.question = 'What is Dair\'s surname?';
-    this.answer = 'tre';
+    this.question = 'What is Dair\'s name?';
+    this.answer = 'Dair';
 
     this.result = $('.result');
     this.result.find('>:first-child').html('Start guessing...');
