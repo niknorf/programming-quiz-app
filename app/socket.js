@@ -68,6 +68,7 @@ module.exports = {
             userId: []
           };
           createdRoom.userId[0] = socket.id;
+          console.log(`${room} is created by ${socket.id}`);
           rooms.push(createdRoom);
         }
 
@@ -81,6 +82,7 @@ module.exports = {
           });
         }
 
+        console.log(`${socket.id} has joined room ${room}`);
         currRoom = room;
         socket.emit('successJoin', room);
       }
@@ -138,7 +140,6 @@ module.exports = {
           type: 'Ok',
           room: room
         });
-        console.log('created room number ' + room);
       });
 
       socket.on('joinRoom', function (room, ack) {
