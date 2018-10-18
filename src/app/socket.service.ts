@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Observer } from 'rxjs';
 import * as socketIo from 'socket.io-client';
 
-const url = 'http://localhost:2112';
+const url = 'https://programming-quiz-app.herokuapp.com';
 
 @Injectable()
 export class SocketService {

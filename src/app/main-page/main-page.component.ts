@@ -23,16 +23,18 @@ const ELEMENT_DATA: SampleElement[] = [
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss']
 })
-
 export class MainPageComponent implements OnInit {
   roomName: Room['name'];
-  uri: URI;
 
   displayedColumns: string[] = ['position', 'category', 'name', 'actions'];
   dataSource = ELEMENT_DATA;
   private currentRow;
 
-  constructor(private _socket: SocketService, private http: Http) {}
+  constructor(
+    private _socket: SocketService,
+    private http: Http,
+    private uri: URI
+  ) {}
   ngOnInit() {
     this.getRooms();
   }
@@ -45,7 +47,7 @@ export class MainPageComponent implements OnInit {
 
   getRooms(): Promise<void | Room[]> {
     return this.http
-      .get('http://localhost:2112/api/rooms')
+      .get('https://programming-quiz-app.herokuapp.com/api/rooms')
       .toPromise()
       .then(response => console.log(response.json()))
       .catch();
