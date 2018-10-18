@@ -7,9 +7,9 @@ import * as $ from 'jquery';
   styleUrls: ['./game-page.component.scss']
 })
 export class GamePageComponent implements OnInit {
-  question = 'What is Dair\'s surname?';
+  question: string;
   result: any;
-  answer: any = 'Baidauletov';
+  answer: any;
   guess: string;
   correctGuesses: Array<string> = [];
 
@@ -17,6 +17,15 @@ export class GamePageComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.initializeGame();
+  }
+
+  initializeGame() {
+    $('.input-wrapper').removeClass('success');
+
+    this.question = 'What is Dair\'s surname?';
+    this.answer = 'tre';
+
     this.result = $('.result');
     this.result.find('>:first-child').html('Start guessing...');
 
@@ -29,29 +38,35 @@ export class GamePageComponent implements OnInit {
 
   checkLetter() {
     let isCorrect = false;
-    for ( let i = 0; i < this.answer.length; i ++ ) {
-      console.log(this.guess);
-      if (this.guess.toUpperCase() === this.answer[i].toUpperCase()) {
-        this.correctGuesses[i] = this.guess;
-        isCorrect = true;
-
-        if (this.correctGuesses.join('') === this.answer.join('')) {
-          this.wordIsGuessed();
+    if (this.guess) {
+      for ( let i = 0; i < this.answer.length; i ++ ) {
+        if (this.guess.toUpperCase() === this.answer[i].toUpperCase()) {
+          this.correctGuesses[i] = this.guess;
+          isCorrect = true;
         }
       }
-    }
 
-    if (!isCorrect) {
-      this.result.find('>:first-child').html('Wrong letter!');
-    } else {
-      this.result.find('>:first-child').html('Nice one!');
+      this.guess = null;
+
+      if (!isCorrect) {
+        this.result.find('>:first-child').html('Wrong letter!');
+      } else {
+        this.result.find('>:first-child').html('Nice one!');
+      }
+
+      if (this.correctGuesses.join('').toUpperCase() === this.answer.join('').toUpperCase()) {
+        this.wordIsGuessed();
+      }
     }
 
     this.changeResultColor(isCorrect);
   }
 
   wordIsGuessed() {
+    this.correctGuesses = [];
     this.result.find('>:first-child').html('The word is guessed!');
+    $('.input-wrapper').addClass('success');
+    $('.restart').addClass('show');
   }
 
   changeResultColor(s) {
