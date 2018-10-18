@@ -17,7 +17,8 @@ import {
   MatMenuModule,
   MatTableModule,
   MatPaginatorModule,
-  MatSortModule
+  MatSortModule,
+  MatInputModule
 } from '@angular/material';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TableComponent } from './table/table.component';
@@ -30,6 +31,7 @@ import * as $ from 'jquery';
 import { ElementHelperService } from './element-helper.service';
 
 const appRoutes: Routes = [
+  { path: '', redirectTo: 'main-page', pathMatch: 'full' },
   { path: 'main-page', component: MainPageComponent },
   { path: 'game-page', component: GamePageComponent },
   { path: 'questions-page', component: QuestionsPageComponent },
@@ -63,6 +65,7 @@ const appRoutes: Routes = [
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatInputModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [ElementHelperService],

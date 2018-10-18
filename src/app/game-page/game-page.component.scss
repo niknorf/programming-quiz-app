@@ -1,0 +1,21 @@
+.game-wrapper {
+  text-align: center;
+}
+.questions {}
+.ansewr {}
+
+.answer-letters {
+  padding-left: 0;
+}
+
+.letter-wrapper {
+  width: 50px;
+  border-bottom: 5px solid;
+}
+
+.answer-letter {
+  display: inline-block;
+  font-size: 48px;
+  margin: 0 12px;
+  text-transform: uppercase;
+}
