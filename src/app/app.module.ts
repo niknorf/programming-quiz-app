@@ -6,7 +6,20 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule, MatTableModule, MatPaginatorModule, MatSortModule, MatInputModule } from '@angular/material';
+import {
+  MatToolbarModule,
+  MatButtonModule,
+  MatSidenavModule,
+  MatIconModule,
+  MatListModule,
+  MatGridListModule,
+  MatCardModule,
+  MatMenuModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule,
+  MatInputModule
+} from '@angular/material';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TableComponent } from './table/table.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -14,6 +27,8 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { GamePageComponent } from './game-page/game-page.component';
 import { QuestionsPageComponent } from './questions-page/questions-page.component';
 import { ScoresPageComponent } from './scores-page/scores-page.component';
+import * as $ from 'jquery';
+import { ElementHelperService } from './element-helper.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'main-page', pathMatch: 'full' },
@@ -53,7 +68,7 @@ const appRoutes: Routes = [
     MatInputModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [ElementHelperService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
