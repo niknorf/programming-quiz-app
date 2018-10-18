@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Room } from '../room';
 import { SocketService } from '../socket.service';
-import { URI } from '../model/uri';
 import { Http, Response } from '@angular/http';
 
 export interface SampleElement {
@@ -30,11 +29,7 @@ export class MainPageComponent implements OnInit {
   dataSource = ELEMENT_DATA;
   private currentRow;
 
-  constructor(
-    private _socket: SocketService,
-    private http: Http,
-    private uri: URI
-  ) {}
+  constructor(private _socket: SocketService, private http: Http) {}
   ngOnInit() {
     this.getRooms();
   }
