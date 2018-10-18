@@ -2,13 +2,31 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Room } from '../room';
 import { SocketService } from '../socket.service';
 
+export interface SampleElement {
+  name: string;
+  position: number;
+  category: string;
+}
+
+const ELEMENT_DATA: SampleElement[] = [
+  {position: 1, name: 'Routing', category: 'Angular'},
+  {position: 2, name: 'Store setup', category: 'Magento'},
+  {position: 3, name: 'React basics', category: 'React'},
+  {position: 4, name: 'Module creation', category: 'Magento'},
+  {position: 5, name: 'PHP: Best practices', category: 'PHP',},
+];
+
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss']
 })
+
 export class MainPageComponent implements OnInit {
   roomName: Room['name'];
+
+  displayedColumns: string[] = ['position', 'category', 'name', 'actions'];
+  dataSource = ELEMENT_DATA;
 
   constructor(private _socket: SocketService) {}
   ngOnInit() {}
