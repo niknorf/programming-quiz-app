@@ -2,7 +2,23 @@
   text-align: center;
 }
 .questions {}
-.ansewr {}
+
+.result {
+  margin: 40px 0 80px;
+
+  &.correct {
+    color: #28a745;
+  }
+
+  &.wrong {
+    color: #dc3545;
+  }
+
+}
+
+.answer {
+  margin: 20px 0;
+}
 
 .answer-letters {
   padding-left: 0;
@@ -18,4 +34,17 @@
   font-size: 48px;
   margin: 0 12px;
   text-transform: uppercase;
+}
+
+.input-wrapper {
+  &.success {
+    display: none;
+  }
+}
+
+.restart {
+  display: none;
+  &.show {
+    display: block;
+  }
 }

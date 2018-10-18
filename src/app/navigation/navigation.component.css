@@ -1,4 +1,5 @@
 .sidenav-container {
+  background-color: #FFF;
   height: 100%;
 }
 
@@ -9,8 +10,4 @@
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
-}
-
-.router-content {
-  background-color: blue;
 }

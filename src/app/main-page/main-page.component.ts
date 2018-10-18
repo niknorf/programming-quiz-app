@@ -9,11 +9,11 @@ export interface SampleElement {
 }
 
 const ELEMENT_DATA: SampleElement[] = [
-  {position: 1, name: 'Routing', category: 'Angular'},
-  {position: 2, name: 'Store setup', category: 'Magento'},
-  {position: 3, name: 'React basics', category: 'React'},
-  {position: 4, name: 'Module creation', category: 'Magento'},
-  {position: 5, name: 'PHP: Best practices', category: 'PHP',},
+  { position: 1, name: 'Routing', category: 'Angular' },
+  { position: 2, name: 'Store setup', category: 'Magento' },
+  { position: 3, name: 'React basics', category: 'React' },
+  { position: 4, name: 'Module creation', category: 'Magento' },
+  { position: 5, name: 'PHP: Best practices', category: 'PHP' }
 ];
 
 @Component({
@@ -27,6 +27,7 @@ export class MainPageComponent implements OnInit {
 
   displayedColumns: string[] = ['position', 'category', 'name', 'actions'];
   dataSource = ELEMENT_DATA;
+  private currentRow;
 
   constructor(private _socket: SocketService) {}
   ngOnInit() {}
@@ -35,6 +36,10 @@ export class MainPageComponent implements OnInit {
   @Input()
   get room() {
     return this.roomName;
+  }
+
+  rowClicked(row: any): void {
+    this.currentRow = row;
   }
 
   openRoom(room) {
@@ -65,16 +70,24 @@ export class MainPageComponent implements OnInit {
     });
   }
 
-  joinRoom(room) {
-    this._socket.emit('joinRoom', room, data => {
-      if (data.type === 'Abort') {
-        return alert('Error: ' + data.reason);
-      }
+  joinRoom() {
+    let roomName;
 
-      if (data.type === 'Ok') {
-        this.openRoom(data.room);
-      }
-    });
+    if (this.currentRow) {
+      roomName = this.currentRow.category + this.currentRow.name;
+      console.log(roomName);
+      this._socket.emit('joinRoom', roomName, data => {
+        console.log(data);
+        if (data.type === 'Abort') {
+          return alert('Error: ' + data.reason);
+        }
+
+        if (data.type === 'Ok') {
+          console.log(`joined ${roomName}`);
+          this.openRoom(data.room);
+        }
+      });
+    }
   }
 
   leaveRoom(room) {
