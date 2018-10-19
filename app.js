@@ -161,13 +161,14 @@ app.get(`/${API}/questions`, function (req, res) {
 });
 
 app.post(`/${API}/question`, function (req, res) {
-  let question = req.body;
+  let question = req.body.question;
+  let answer = req.body.answer;
   question.createDate = new Date();
 
-  if (!req.body.content) {
+  if (!req.body.question && !req.body.answer) {
     handleError(res, "Invalid request", 400);
   } else {
-    db.collection(questionCollection).insertOne(question, function (err, doc) {
+    db.collection(questionCollection).insertOne({question: question, answer: answer}, function (err, doc) {
       if (err) {
         handleError(res, err.message, "Failed to create new question.");
       } else {

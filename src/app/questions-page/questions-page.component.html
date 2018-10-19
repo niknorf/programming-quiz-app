@@ -1,11 +1,11 @@
-<form class="example-form">
+<form class="example-form" (ngSubmit)="insertQuestion()">
   <mat-form-field class="example-full-width">
-    <input matInput [(ngModel)]="question" placeholder="Your question" name="_question">
+    <input matInput [(ngModel)]="question" placeholder="Your question" name="_question" required>
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input matInput [(ngModel)]="answer" placeholder="Your answer" name="_answer">
+    <input matInput [(ngModel)]="answer" placeholder="Your answer" name="_answer" required>
   </mat-form-field>
 
-  <button mat-button color="primary">Create</button>
+  <button type="submit" mat-button color="primary">Create</button>
 </form>
