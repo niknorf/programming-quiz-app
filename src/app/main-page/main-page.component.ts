@@ -80,24 +80,24 @@ export class MainPageComponent implements OnInit {
     });
   }
 
-  joinRoom() {
-    let roomName;
+  joinRoom(room) {
+    this.roomName = room;
 
-    if (this.currentRow) {
-      roomName = this.currentRow.category + this.currentRow.name;
-      console.log(roomName);
-      this._socket.emit('joinRoom', roomName, data => {
-        console.log(data);
-        if (data.type === 'Abort') {
-          return alert('Error: ' + data.reason);
-        }
+    if (!room) return alert('Please add new name');
 
-        if (data.type === 'Ok') {
-          console.log(`joined ${roomName}`);
-          this.openRoom(data.room);
-        }
-      });
-    }
+    console.log(this.roomName, this._socket);
+
+    this._socket.emit('joinRoom', room, data => {
+      console.log(data);
+      if (data.type === 'Abort') {
+        return alert('Error: ' + data.reason);
+      }
+
+      if (data.type === 'Ok') {
+        console.log(`joined ${room}`);
+        this.openRoom(data.room);
+      }
+    });
   }
 
   leaveRoom(room) {
