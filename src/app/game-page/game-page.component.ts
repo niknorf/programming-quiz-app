@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Question } from '../question';
+import { Http, Response } from '@angular/http';
 import * as $ from 'jquery';
 
 @Component({
@@ -14,7 +16,9 @@ export class GamePageComponent implements OnInit {
   correctGuesses: Array<string> = [];
 
 
-  constructor() { }
+  constructor(
+    private http: Http,
+  ) { }
 
   ngOnInit() {
     this.initializeGame();
@@ -22,6 +26,8 @@ export class GamePageComponent implements OnInit {
 
   initializeGame() {
     $('.input-wrapper').removeClass('success');
+
+    let questions = this.getQuestions();
 
     this.question = 'What is Dair\'s name?';
     this.answer = 'Dair';
@@ -76,5 +82,13 @@ export class GamePageComponent implements OnInit {
     } else {
       this.result.addClass('wrong');
     }
+  }
+
+getQuestions(): Promise<void | Question[]> {
+    return this.http
+      .get('http://localhost:2112/api/questions')
+      .toPromise()
+      .then(response => console.log(response.json()))
+      .catch();
   }
 }
