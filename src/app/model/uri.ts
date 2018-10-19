@@ -1,3 +1,3 @@
-export class URI {
-  uri: 'http://localhost:2112';
+export enum URI {
+  uri = 'http://localhost:2112'
 }

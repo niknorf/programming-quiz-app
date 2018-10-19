@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { SocketService } from './socket.service';
 import { ElementHelperService } from './element-helper.service';
 import * as $ from 'jquery';
+import { RoomService } from './room.service';
+import { Room } from './room';
 
 @Component({
   selector: 'app-root',
@@ -16,11 +18,13 @@ export class AppComponent {
 
   constructor(
     private socketService: SocketService,
-    private elementHelper: ElementHelperService
+    private elementHelper: ElementHelperService,
+    private roomService: RoomService
   ) {}
 
   ngOnInit() {
     this.initIoConnection();
+    this.roomService.getRooms();
   }
 
   private initIoConnection(): void {
@@ -29,8 +33,9 @@ export class AppComponent {
     this.socket.on('connect', () => {
       console.log(this.socket.id + ' has joined');
 
-      this.socket.emit('rooms', function(data) {
+      this.socket.emit('rooms', data => {
         console.log(data);
+        this.roomService.addRoom(data.rooms);
       });
     });
 

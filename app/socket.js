@@ -13,7 +13,35 @@ module.exports = {
   initSocketServer: (app) => {
     io = socketio.listen(app);
 
-    let rooms = [],
+    // 5 rooms from db
+    const originRooms = [{
+        "position": 1,
+        "name": "Routing",
+        "category": "Angular"
+      },
+      {
+        "position": 2,
+        "name": "Store setup",
+        "category": "Magento"
+      },
+      {
+        "position": 3,
+        "name": "React basics",
+        "category": "React"
+      },
+      {
+        "position": 4,
+        "name": "Module creation",
+        "category": "Magento"
+      },
+      {
+        "position": 5,
+        "name": "PHP: Best practices",
+        "category": "PHP"
+      }
+    ];
+
+    let rooms = originRooms.slice(),
       num_client = 0;
 
     io.on('connection', socket => {
@@ -21,6 +49,10 @@ module.exports = {
       num_client++;
 
       console.log(`${socket.id} has joined`);
+
+      function resetRooms() {
+        rooms = originRooms.slice();
+      }
 
       function createRoom(newRoom) {
         socket.join(newRoom);
@@ -77,6 +109,7 @@ module.exports = {
           room_to_update.num_user++;
           room_to_update.userId.push(socket.id);
 
+          console.log(`${socket.id} has joined room ${room}`);
           socket.in(room).emit('userJoin', {
             user: socket.id
           });
@@ -194,7 +227,7 @@ module.exports = {
 
         // clear all room if no user present
         if (num_client === 0) {
-          rooms = [];
+          resetRooms();
         }
       });
     });

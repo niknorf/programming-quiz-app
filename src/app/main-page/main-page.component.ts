@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Room } from '../room';
+import { RoomService } from '../room.service';
 import { SocketService } from '../socket.service';
 import { Http, Response } from '@angular/http';
 
@@ -24,14 +25,19 @@ const ELEMENT_DATA: SampleElement[] = [
 })
 export class MainPageComponent implements OnInit {
   roomName: Room['name'];
+  private allRooms;
 
   displayedColumns: string[] = ['position', 'category', 'name', 'actions'];
   dataSource = ELEMENT_DATA;
   private currentRow;
 
-  constructor(private _socket: SocketService, private http: Http) {}
+  constructor(
+    private _socket: SocketService,
+    private http: Http,
+    private roomService: RoomService
+  ) {}
   ngOnInit() {
-    this.getRooms();
+    this.allRooms = this.roomService.getRooms();
   }
 
   // get value of input
@@ -40,16 +46,12 @@ export class MainPageComponent implements OnInit {
     return this.roomName;
   }
 
-  getRooms(): Promise<void | Room[]> {
-    return this.http
-      .get('http://localhost:2112/api/rooms')
-      .toPromise()
-      .then(response => console.log(response.json()))
-      .catch();
-  }
-
   rowClicked(row: any): void {
     this.currentRow = row;
+    let roomName = `${this.currentRow.category} ${this.currentRow.name}`;
+    console.log(roomName);
+
+    this.joinRoom(roomName);
   }
 
   openRoom(room) {
@@ -76,28 +78,27 @@ export class MainPageComponent implements OnInit {
 
       if (data.type === 'Ok') {
         this.openRoom(data.room);
+        this._socket.emit('rooms', {}, data => {
+          console.log(data);
+        });
       }
     });
   }
 
-  joinRoom() {
-    let roomName;
+  joinRoom(roomName) {
+    console.log(roomName);
 
-    if (this.currentRow) {
-      roomName = this.currentRow.category + this.currentRow.name;
-      console.log(roomName);
-      this._socket.emit('joinRoom', roomName, data => {
-        console.log(data);
-        if (data.type === 'Abort') {
-          return alert('Error: ' + data.reason);
-        }
+    this._socket.emit('joinRoom', roomName, data => {
+      console.log(data);
+      if (data.type === 'Abort') {
+        return alert('Error: ' + data.reason);
+      }
 
-        if (data.type === 'Ok') {
-          console.log(`joined ${roomName}`);
-          this.openRoom(data.room);
-        }
-      });
-    }
+      if (data.type === 'Ok') {
+        console.log(`joined ${roomName}`);
+        this.openRoom(data.room);
+      }
+    });
   }
 
   leaveRoom(room) {
