@@ -30,6 +30,8 @@ export class GamePageComponent implements OnInit {
   initializeGame() {
     $('.input-wrapper').removeClass('success');
 
+    $('.restart').removeClass('show');
+
     // this.question = 'What is Dair\'s name?';
     // this.answer = 'Dair';
 
