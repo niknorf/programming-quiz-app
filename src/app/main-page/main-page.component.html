@@ -43,7 +43,7 @@
       <mat-form-field>
         <input type="text" #roomNameInput matInput placeholder="New room name">
       </mat-form-field>
-      <button (click)="createRoom(roomNameInput.value)" mat-raised-button color="accent" class="new-room-btn">Create</button>
+      <button (click)="createRoom(roomNameInput.value)" mat-raised-button color="accent" class="new-room-btn" routerLink="/game-page">Create</button>
     </form>
   </div>
 
