@@ -1,3 +1,3 @@
 export class URI {
-  uri: 'http://localhost:2112';
+  uri: 'https://programming-quiz-app.herokuapp.com';
 }

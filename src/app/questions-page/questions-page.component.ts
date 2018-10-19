@@ -22,7 +22,7 @@ export class QuestionsPageComponent implements OnInit {
   insertQuestion(): Promise<void> | Question {
     if (this.question && this.answer) {
       return this.http
-        .post(`http://localhost:2112/api/question`, {question: this.question, answer: this.answer})
+        .post(`https://programming-quiz-app.herokuapp.com/api/question`, {question: this.question, answer: this.answer})
         .toPromise()
         .then(response => console.log(response.json()))
         .catch();

@@ -105,7 +105,7 @@ export class GamePageComponent implements OnInit {
 
 getQuestions(): Promise<void | Question[]> {
     return this.http
-      .get('http://localhost:2112/api/questions')
+      .get('https://programming-quiz-app.herokuapp.com/api/questions')
       .toPromise()
       .then(response => {
         console.log(response.json());

@@ -34,7 +34,7 @@ export class MainPageComponent implements OnInit {
 
   getRooms(): Promise<void | Room[]> {
     return this.http
-      .get('http://localhost:2112/api/rooms')
+      .get('https://programming-quiz-app.herokuapp.com/api/rooms')
       .toPromise()
       .then(response => {
         console.log(response.json());
