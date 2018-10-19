@@ -19,4 +19,8 @@ export class SocketService {
   public emit(event: string, data, callback) {
     this.socket.emit(event, data, callback);
   }
+
+  public getSocketId() {
+    return this.socket.id;
+  }
 }

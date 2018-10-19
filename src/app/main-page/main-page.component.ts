@@ -9,14 +9,6 @@ export interface SampleElement {
   category: string;
 }
 
-const ELEMENT_DATA: SampleElement[] = [
-  { position: 1, name: 'Routing', category: 'Angular' },
-  { position: 2, name: 'Store setup', category: 'Magento' },
-  { position: 3, name: 'React basics', category: 'React' },
-  { position: 4, name: 'Module creation', category: 'Magento' },
-  { position: 5, name: 'PHP: Best practices', category: 'PHP' }
-];
-
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
@@ -26,7 +18,7 @@ export class MainPageComponent implements OnInit {
   roomName: Room['name'];
 
   displayedColumns: string[] = ['position', 'category', 'name', 'actions'];
-  dataSource = ELEMENT_DATA;
+  dataSource;
   private currentRow;
 
   constructor(private _socket: SocketService, private http: Http) {}
@@ -44,7 +36,10 @@ export class MainPageComponent implements OnInit {
     return this.http
       .get('http://localhost:2112/api/rooms')
       .toPromise()
-      .then(response => console.log(response.json()))
+      .then(response => {
+        console.log(response.json());
+        this.dataSource = response.json();
+      })
       .catch();
   }
 
