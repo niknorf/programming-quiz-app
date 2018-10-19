@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Question } from '../question';
+import { SocketService } from '../socket.service';
 import { Http, Response } from '@angular/http';
 import * as $ from 'jquery';
 
@@ -9,28 +10,38 @@ import * as $ from 'jquery';
   styleUrls: ['./game-page.component.scss']
 })
 export class GamePageComponent implements OnInit {
+  questions: any;
   question: string;
   result: any;
   answer: any;
   guess: string;
   correctGuesses: Array<string> = [];
-
+  room = '1234';
 
   constructor(
     private http: Http,
+    private socket: SocketService
   ) { }
 
   ngOnInit() {
-    this.initializeGame();
+    this.getQuestions();
   }
 
   initializeGame() {
     $('.input-wrapper').removeClass('success');
 
-    let questions = this.getQuestions();
+    // this.question = 'What is Dair\'s name?';
+    // this.answer = 'Dair';
 
-    this.question = 'What is Dair\'s name?';
-    this.answer = 'Dair';
+    let questionSet = false;
+    while (!questionSet) {
+      let q = this.questions[Math.floor(Math.random() * this.questions.length)];
+      if (q.question && q.answer) {
+        this.question = q.question;
+        this.answer = q.answer;
+        questionSet = true;
+      }
+    }
 
     this.result = $('.result');
     this.result.find('>:first-child').html('Start guessing...');
@@ -51,6 +62,14 @@ export class GamePageComponent implements OnInit {
           isCorrect = true;
         }
       }
+
+      this.socket.emit('inputChanged', {
+        room: this.room,
+        id: this.socket.getSocketId(),
+        inputData: this.guess,
+      }, data => {
+        console.log(data);
+      });
 
       this.guess = null;
 
@@ -88,7 +107,11 @@ getQuestions(): Promise<void | Question[]> {
     return this.http
       .get('http://localhost:2112/api/questions')
       .toPromise()
-      .then(response => console.log(response.json()))
+      .then(response => {
+        console.log(response.json());
+        this.questions = response.json();
+        this.initializeGame();
+      })
       .catch();
   }
 }
